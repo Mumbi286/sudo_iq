@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "name": "Budalang'i, Busia County (simplified demo zones around the Nzoia river mouth, not official boundaries)",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Nzoia Riverbank", "risk_level": 3, "households": 80 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[33.98, 0.08], [34.06, 0.08], [34.06, 0.11], [33.98, 0.11], [33.98, 0.08]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Budalang'i Centre", "risk_level": 2, "households": 70 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[34.00, 0.11], [34.05, 0.11], [34.05, 0.14], [34.00, 0.14], [34.00, 0.11]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Port Victoria", "risk_level": 2, "households": 50 },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[33.94, 0.09], [33.98, 0.09], [33.98, 0.13], [33.94, 0.13], [33.94, 0.09]]]
+      }
+    }
+  ]
+}
