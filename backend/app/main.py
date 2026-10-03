@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Sudo IQ API")
+app = FastAPI(title="Mlinzi API")
 
 
 @app.get("/")
