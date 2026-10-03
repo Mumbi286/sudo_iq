@@ -4,361 +4,270 @@
 
 body {
   margin: 0;
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #07111f;
   color: #e5edf7;
 }
 
-button,
-input {
+button, input, textarea {
   font: inherit;
 }
 
 button {
   border: 0;
   border-radius: 10px;
-
   padding: 11px 16px;
-
   background: #17263b;
   color: white;
-
   cursor: pointer;
-
-  transition:
-    background 0.2s,
-    transform 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
-button:hover {
-  background: #223753;
-}
-
-button:active {
-  transform: scale(0.98);
-}
+button:hover { background: #223753; }
+button:active { transform: scale(0.98); }
 
 .app {
   min-height: 100vh;
-
   padding: 25px;
-
   max-width: 1700px;
-
   margin: auto;
 }
 
-
-/* HEADER */
-
 header {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   gap: 20px;
-
   margin-bottom: 22px;
 }
 
 h1 {
   margin: 0;
-
   font-size: 30px;
-
   letter-spacing: -0.7px;
 }
 
 header p {
-  margin:
-    5px 0 0;
-
+  margin: 5px 0 0;
   color: #8293aa;
 }
 
 .header-actions {
   display: flex;
-
   gap: 10px;
 }
 
-.gps-button {
-  background: #2563eb;
-}
-
-.gps-button:hover {
-  background: #1d4ed8;
-}
-
-
-/* ERROR */
+.gps-button { background: #2563eb; }
+.gps-button:hover { background: #1d4ed8; }
 
 .error {
   padding: 14px;
-
   margin-bottom: 15px;
-
   border-radius: 10px;
-
   background: #431d22;
-
   border: 1px solid #7f1d1d;
-
   color: #fecaca;
 }
 
-
-/* LOCATION */
-
 .location-panel {
   display: flex;
-
   align-items: end;
-
   gap: 15px;
-
   padding: 16px;
-
   background: #0d1a2b;
-
   border: 1px solid #1b2b40;
-
   border-radius: 14px;
-
   margin-bottom: 18px;
 }
 
 .location-panel > div {
   display: flex;
-
   flex-direction: column;
-
   gap: 6px;
 }
 
 label {
   font-size: 12px;
-
   color: #7f91a8;
-
   text-transform: uppercase;
 }
 
-input {
+input, textarea {
   width: 180px;
-
   padding: 10px 12px;
-
   color: white;
-
   background: #091525;
-
   border: 1px solid #263952;
-
   border-radius: 9px;
-
   outline: none;
 }
 
-input:focus {
-  border-color: #3b82f6;
+textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
 }
 
-
-/* STATS */
+input:focus, textarea:focus { border-color: #3b82f6; }
 
 .stats {
   display: grid;
-
-  grid-template-columns:
-    repeat(5, 1fr);
-
+  grid-template-columns: repeat(5, 1fr);
   gap: 14px;
-
   margin-bottom: 18px;
 }
 
 .summary-card {
   padding: 18px;
-
   min-height: 110px;
-
   border-radius: 14px;
-
   background: #0d1a2b;
-
   border: 1px solid #1b2b40;
 }
 
 .summary-title {
   color: #8395aa;
-
   font-size: 13px;
 }
 
 .summary-value {
   margin-top: 14px;
-
   font-size: 27px;
-
   font-weight: 700;
 }
 
 .unit {
   font-size: 13px;
-
   margin-left: 3px;
-
   color: #71839a;
 }
 
-
-/* RISK */
-
 .risk-panel {
   display: grid;
-
-  grid-template-columns:
-    250px 1fr;
-
+  grid-template-columns: 250px 1fr;
   gap: 30px;
-
   align-items: center;
-
   padding: 25px;
-
   background: #0d1a2b;
-
   border: 1px solid #1b2b40;
-
   border-radius: 14px;
-
   margin-bottom: 18px;
 }
 
 .section-label {
   font-size: 11px;
-
   letter-spacing: 1.4px;
-
   color: #71849a;
 }
 
 .risk-number {
   font-size: 48px;
-
   font-weight: 800;
-
   line-height: 1;
-
   margin-top: 8px;
 }
 
 .risk-category {
   margin-top: 5px;
-
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
 .risk-panel p {
-  margin:
-    10px 0 0;
-
+  margin: 10px 0 0;
   font-size: 12px;
-
   line-height: 1.5;
-
   color: #71849a;
 }
 
 .risk-bar {
   height: 25px;
-
   border-radius: 999px;
-
   overflow: hidden;
-
   background: #172538;
 }
 
 .risk-fill {
   height: 100%;
-
   border-radius: inherit;
-
-  transition:
-    width 0.6s ease;
+  transition: width 0.6s ease;
 }
 
+.report-box {
+  background: #0d1a2b;
+  border: 1px solid #1b2b40;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
 
-/* MAP */
+.report-box h2 {
+  margin: 0 0 14px;
+  font-size: 22px;
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #b9c7d9;
+  text-transform: none;
+}
+
+.checkbox-row input {
+  width: auto;
+}
+
+.primary-button {
+  background: #10b981;
+  max-width: 220px;
+}
+
+.primary-button:hover { background: #059669; }
 
 .map-section {
   background: #0d1a2b;
-
   border: 1px solid #1b2b40;
-
   border-radius: 14px;
-
   overflow: hidden;
-
   margin-bottom: 18px;
 }
 
 .map-header {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   padding: 17px 20px;
 }
 
-.map-header h2 {
-  margin: 0 0 4px;
-
-  font-size: 18px;
-}
-
-.map-header span {
-  font-size: 12px;
-
-  color: #71849a;
-}
+.map-header h2 { margin: 0 0 4px; font-size: 18px; }
+.map-header span { font-size: 12px; color: #71849a; }
 
 .live {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
-
   color: #22c55e;
-
   font-size: 12px;
-
   font-weight: 700;
 }
 
 .live span {
   width: 8px;
-
   height: 8px;
-
   border-radius: 50%;
-
   background: #22c55e;
 }
 
@@ -368,176 +277,102 @@ input:focus {
 
 .leaflet-container {
   width: 100%;
-
   height: 100%;
-
   background: #08111d;
 }
 
-
-/* EVENTS */
-
 .events {
   background: #0d1a2b;
-
   border: 1px solid #1b2b40;
-
   border-radius: 14px;
-
   overflow: hidden;
 }
 
 .events-header {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   padding: 18px;
-
-  border-bottom:
-    1px solid #1b2b40;
+  border-bottom: 1px solid #1b2b40;
 }
 
-.events-header h2 {
-  margin: 0;
-
-  font-size: 18px;
-}
-
-.events-header span {
-  color: #71849a;
-
-  font-size: 12px;
-}
+.events-header h2 { margin: 0; font-size: 18px; }
+.events-header span { color: #71849a; font-size: 12px; }
 
 .event {
   display: flex;
-
-  align-items: center;
-
+  align-items: flex-start;
   gap: 14px;
-
   padding: 15px 18px;
-
-  border-bottom:
-    1px solid #16263a;
+  border-bottom: 1px solid #16263a;
 }
 
-.event:last-child {
-  border-bottom: 0;
-}
+.event:last-child { border-bottom: 0; }
 
 .event-dot {
   width: 11px;
-
   height: 11px;
-
   border-radius: 50%;
-
   flex-shrink: 0;
+  margin-top: 7px;
 }
 
 .event-main {
   display: flex;
-
   flex-direction: column;
-
   gap: 4px;
-
   flex: 1;
 }
 
 .event-main span {
   font-size: 12px;
-
   color: #71849a;
+}
+
+.event-main small {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d9e6f5;
+}
+
+.score-inline {
+  color: #7dd3fc !important;
 }
 
 .event-alert {
   font-size: 11px;
-
   text-transform: uppercase;
-
   font-weight: 700;
 }
 
 .empty {
   padding: 30px;
-
   text-align: center;
-
   color: #71849a;
 }
 
-
-/* FOOTER */
-
 footer {
-  padding:
-    20px 5px;
-
+  padding: 20px 5px;
   color: #586b82;
-
   font-size: 11px;
-
   line-height: 1.5;
 }
 
-
-/* MOBILE */
-
 @media (max-width: 1000px) {
-  .stats {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-  .risk-panel {
-    grid-template-columns: 1fr;
-  }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .risk-panel { grid-template-columns: 1fr; }
+  .report-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-
 @media (max-width: 700px) {
-  .app {
-    padding: 12px;
-  }
-
-  header {
-    flex-direction: column;
-
-    align-items: flex-start;
-  }
-
-  .header-actions {
-    width: 100%;
-  }
-
-  .header-actions button {
-    flex: 1;
-  }
-
-  .location-panel {
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  .location-panel button {
-    width: 100%;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .map {
-    height: 500px;
-  }
+  .app { padding: 12px; }
+  header { flex-direction: column; align-items: flex-start; }
+  .header-actions { width: 100%; }
+  .header-actions button { flex: 1; }
+  .location-panel { flex-direction: column; align-items: stretch; }
+  input, textarea { width: 100%; }
+  .location-panel button { width: 100%; }
+  .stats { grid-template-columns: 1fr; }
+  .report-grid { grid-template-columns: 1fr; }
+  .map { height: 500px; }
 }
