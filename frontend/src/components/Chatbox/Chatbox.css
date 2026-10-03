@@ -1,0 +1,172 @@
+/* src/components/Chatbox/Chatbox.css */
+/* Uses the colour tokens defined in Navbar.css (:root). */
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  width: min(42rem, 100%);
+  height: min(36rem, calc(100vh - 6rem));
+  margin: 1.5rem auto;
+  border: 1px solid #d3dfe5;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  font-family: var(--mm-font-body);
+  color: var(--mm-deep);
+}
+
+/* ---------- Pin location bar ---------- */
+.chatbox__location {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--mm-mist);
+  border-bottom: 1px solid #d3dfe5;
+}
+
+.chatbox__pin {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--mm-teal);
+  color: #fff;
+  font: 600 0.9rem var(--mm-font-body);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.chatbox__pin:hover:not(:disabled) { background: #176474; }
+
+.chatbox__origin {
+  min-width: 0;
+  font-size: 0.85rem;
+  color: #4a6272;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Messages ---------- */
+.chatbox__messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.chatbox__message {
+  max-width: 85%;
+  padding: 0.65rem 0.9rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.chatbox__message p { margin: 0; }
+
+.chatbox__message--bot {
+  align-self: flex-start;
+  background: var(--mm-mist);
+  border-bottom-left-radius: 4px;
+}
+
+.chatbox__message--user {
+  align-self: flex-end;
+  background: var(--mm-deep);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chatbox__message--error {
+  background: #fbe9e7;
+  border-left: 4px solid var(--mm-red);
+}
+
+.chatbox__typing { color: #4a6272; font-style: italic; }
+
+.chatbox__destination {
+  margin-top: 0.35rem !important;
+  font-size: 0.8rem;
+  color: #4a6272;
+}
+
+.chatbox__advice {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+/* ---------- Risk badge ---------- */
+.chatbox__badge {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.chatbox__badge--low      { background: var(--mm-green); }
+.chatbox__badge--moderate { background: var(--mm-amber); color: var(--mm-deep); }
+.chatbox__badge--high     { background: #e0662b; }
+.chatbox__badge--severe   { background: var(--mm-red); }
+
+/* ---------- Input row ---------- */
+.chatbox__form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #d3dfe5;
+}
+
+.chatbox__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid #b9c9d2;
+  border-radius: 999px;
+  font: 0.95rem var(--mm-font-body);
+}
+
+.chatbox__input:focus {
+  outline: none;
+  border-color: var(--mm-teal);
+  box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.2);
+}
+
+.chatbox__send {
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--mm-deep);
+  color: #fff;
+  font: 600 0.9rem var(--mm-font-body);
+  cursor: pointer;
+}
+
+.chatbox__send:hover:not(:disabled) { background: #123f58; }
+
+.chatbox__pin:disabled,
+.chatbox__send:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.chatbox__pin:focus-visible,
+.chatbox__send:focus-visible {
+  outline: 3px solid var(--mm-amber);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .chatbox {
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    height: calc(100vh - 3.6rem);
+  }
+  .chatbox__message { max-width: 92%; }
+}

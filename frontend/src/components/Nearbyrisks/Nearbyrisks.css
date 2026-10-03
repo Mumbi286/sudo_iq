@@ -1,0 +1,120 @@
+/* src/components/NearbyRisks/NearbyRisks.css */
+/* Uses the colour tokens defined in Navbar.css (:root). */
+
+.nearby {
+  display: flex;
+  flex-direction: column;
+  height: min(36rem, calc(100vh - 6rem));
+  padding: 1rem;
+  border: 1px solid #d3dfe5;
+  border-radius: 14px;
+  background: #fff;
+  font-family: var(--mm-font-body);
+  color: var(--mm-deep);
+}
+
+.nearby__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.nearby__title {
+  margin: 0;
+  font-family: var(--mm-font-brand);
+  font-size: 1.25rem;
+}
+
+.nearby__refresh {
+  padding: 0.35rem 0.9rem;
+  border: 1.5px solid var(--mm-teal);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mm-teal);
+  font: 600 0.85rem var(--mm-font-body);
+  cursor: pointer;
+}
+
+.nearby__refresh:hover:not(:disabled) { background: var(--mm-teal); color: #fff; }
+.nearby__refresh:disabled { opacity: 0.55; cursor: not-allowed; }
+.nearby__refresh:focus-visible {
+  outline: 3px solid var(--mm-amber);
+  outline-offset: 2px;
+}
+
+.nearby__summary {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: #4a6272;
+}
+
+.nearby__empty {
+  margin: auto 0;
+  padding: 1rem;
+  text-align: center;
+  color: #4a6272;
+}
+
+.nearby__error {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.8rem;
+  border-left: 4px solid var(--mm-red);
+  border-radius: 8px;
+  background: #fbe9e7;
+  font-size: 0.9rem;
+}
+
+.nearby__list {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.nearby__item {
+  padding: 0.7rem 0.9rem;
+  border-left: 5px solid var(--mm-green);
+  border-bottom: 1px solid #e3ebef;
+}
+
+.nearby__item--moderate { border-left-color: var(--mm-amber); }
+.nearby__item--high     { border-left-color: #e0662b; }
+.nearby__item--severe   { border-left-color: var(--mm-red); background: #fdf3f1; }
+
+.nearby__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.nearby__name { font-weight: 600; }
+
+.nearby__badge {
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.nearby__badge--low      { background: var(--mm-green); }
+.nearby__badge--moderate { background: var(--mm-amber); color: var(--mm-deep); }
+.nearby__badge--high     { background: #e0662b; }
+.nearby__badge--severe   { background: var(--mm-red); }
+
+.nearby__message {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.nearby__meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: #4a6272;
+}

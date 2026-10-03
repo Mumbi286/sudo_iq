@@ -1,0 +1,69 @@
+.home {
+  min-height: 100vh;
+  background: var(--mm-mist);
+  font-family: var(--mm-font-body);
+}
+
+.home__main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.home__intro {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+}
+
+.home__heading {
+  margin: 0 0 0.5rem;
+  font-family: var(--mm-font-brand);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--mm-deep);
+}
+
+.home__lead {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #4a6272;
+}
+
+/* Chat on the left, nearby risks on the right */
+.home__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Let the grid control sizing instead of the components' own margins */
+.home__chat .chatbox {
+  width: 100%;
+  margin: 0;
+}
+
+.home__risks .nearby {
+  width: 100%;
+}
+
+@media (max-width: 860px) {
+  .home__main { padding: 1.25rem 1rem 2rem; }
+
+  .home__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Cancel the Chatbox's full-bleed mobile layout; it sits inside a page here */
+  .home__chat .chatbox {
+    height: min(32rem, 75vh);
+    border: 1px solid #d3dfe5;
+    border-radius: 14px;
+  }
+
+  .home__risks .nearby {
+    height: auto;
+    max-height: 32rem;
+  }
+}
