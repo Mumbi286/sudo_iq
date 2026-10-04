@@ -12,4 +12,6 @@ class Alert(Base):
     severity = Column(SAEnum(Severity, name="severity"), nullable=False)
     source = Column(SAEnum(AlertSource, name="alert_source"), nullable=False, default=AlertSource.MANUAL)
     message = Column(Text, nullable=False)
+    # Who issued it (audit trail); null for automatic alerts
+    issued_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())

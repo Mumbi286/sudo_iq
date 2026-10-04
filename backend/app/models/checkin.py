@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, DateTime, Enum as SAEnum, ForeignKey, Index, Integer, String, UniqueConstraint, func, text,
+    Column, DateTime, Enum as SAEnum, ForeignKey, Index, Integer, UniqueConstraint, func, text,
 )
 
 from app.db.session import Base
@@ -12,12 +12,14 @@ class Checkin(Base):
     __tablename__ = "checkins"
     id = Column(Integer, primary_key=True, index=True)
     alert_id = Column(Integer, ForeignKey("alerts.id"), nullable=False)
-    household_id = Column(Integer, ForeignKey("households.id"), nullable=False)
+    # Indexed: an SMS reply looks up the household's check-in by this column
+    household_id = Column(Integer, ForeignKey("households.id"), nullable=False, index=True)
     state = Column(SAEnum(CheckinState, name="checkin_state"), nullable=False, default=CheckinState.SENT)
     attempts = Column(Integer, nullable=False, default=1)
     priority = Column(Integer, nullable=False, default=0)
     next_action_at = Column(DateTime(timezone=True), nullable=True)
-    assigned_to = Column(String, nullable=True)
+    # Responder who claimed this household
+    assigned_to_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     updated_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
 
     __table_args__ = (

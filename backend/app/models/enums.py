@@ -30,6 +30,25 @@ class CheckinState(str, Enum):
 # Final states: the escalation engine ignores these
 CLOSED_STATES = (CheckinState.SAFE, CheckinState.RESCUED, CheckinState.CLOSED)
 
+# States where we know what happened to the household (the "accounted for" metric)
+ACCOUNTED_STATES = (
+    CheckinState.SAFE, CheckinState.NEEDS_HELP, CheckinState.ASSIGNED,
+    CheckinState.RESCUED, CheckinState.CLOSED,
+)
+
+
+# Who a staff account is
+class UserRole(str, Enum):
+    ADMIN = "ADMIN"
+    OPERATOR = "OPERATOR"
+    RESPONDER = "RESPONDER"
+
+
+# How a household is reached (and which channel a message used)
+class Channel(str, Enum):
+    SMS = "SMS"
+    WHATSAPP = "WHATSAPP"
+
 
 # Direction of an SMS relative to us
 class MessageDirection(str, Enum):

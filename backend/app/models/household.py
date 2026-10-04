@@ -1,7 +1,8 @@
 from geoalchemy2 import Geometry
-from sqlalchemy import Column, DateTime, Index, Integer, String, func
+from sqlalchemy import Column, DateTime, Enum as SAEnum, Index, Integer, String, func
 
 from app.db.session import Base
+from app.models.enums import Channel
 
 
 # Household model: one registered phone, one location.
@@ -11,6 +12,8 @@ class Household(Base):
     id = Column(Integer, primary_key=True, index=True)
     head_name = Column(String, nullable=True)
     phone = Column(String, nullable=False, unique=True)
+    # Preferred channel: the one the household last used to talk to us
+    channel = Column(SAEnum(Channel, name="channel"), nullable=False, default=Channel.SMS, server_default=Channel.SMS.value)
     members = Column(Integer, nullable=False, default=1)
     # Elderly, disabled or infant members; raises rescue priority
     vulnerable = Column(Integer, nullable=False, default=0)
