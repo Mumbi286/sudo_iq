@@ -1,5 +1,4 @@
 # Local infrastructure: PostGIS on host port 5433.
-# Start with: docker compose up -d
 services:
   db:
     image: postgis/postgis:16-3.4
