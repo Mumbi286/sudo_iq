@@ -6,9 +6,13 @@ Run from backend/ after migrations:
 
 Each feature is one zone: a Polygon geometry with properties
 `name`, `risk_level` (1-3) and `households` (how many demo households to generate).
-Adding a new county is a data change, not a code change.
+Adding a new county is a data change, not a code change. Zones can also be added
+at runtime through POST /zones and POST /zones/import.
 
-Safe to re-run: existing zones and households are left as they are.
+Also creates the first admin account from FIRST_ADMIN_EMAIL / FIRST_ADMIN_PASSWORD
+in .env. Every other staff account is created through POST /users.
+
+Safe to re-run: existing zones, households and users are left as they are.
 """
 import json
 import random
@@ -16,12 +20,15 @@ import sys
 from pathlib import Path
 
 from geoalchemy2 import WKTElement
-from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.db.session import SessionLocal
+from app.models.enums import UserRole
 from app.models.household import Household
 from app.models.zone import Zone
+from app.services.users import create_user, get_user_by_email
+from app.services.zones import create_zone, find_zone_by_name
 
 DEFAULT_ZONES_FILE = Path(__file__).parent / "data" / "budalangi.geojson"
 
@@ -60,21 +67,27 @@ def random_point_in_polygon(rng: random.Random, ring: list) -> tuple:
             return lon, lat
 
 
-# create zone
+# create zone (through the same service the API uses)
 def get_or_create_zone(db: Session, *, name: str, risk_level: int, geometry: dict) -> Zone:
-    zone = db.query(Zone).filter(Zone.name == name).first()
+    zone = find_zone_by_name(db, name)
     if zone is not None:
         return zone
+    return create_zone(db, name=name, risk_level=risk_level, geometry=geometry)
 
-    zone = Zone(
-        name=name,
-        risk_level=risk_level,
-        geom=func.ST_SetSRID(func.ST_GeomFromGeoJSON(json.dumps(geometry)), 4326),
+
+# create the first admin from .env, so someone can log in and create the other accounts
+def ensure_first_admin(db: Session) -> None:
+    if not settings.FIRST_ADMIN_EMAIL or not settings.FIRST_ADMIN_PASSWORD:
+        print("FIRST_ADMIN_EMAIL / FIRST_ADMIN_PASSWORD not set: no admin created.")
+        return
+    if get_user_by_email(db, settings.FIRST_ADMIN_EMAIL) is not None:
+        print(f"Admin {settings.FIRST_ADMIN_EMAIL} already exists.")
+        return
+    create_user(
+        db, name="Admin", email=settings.FIRST_ADMIN_EMAIL,
+        password=settings.FIRST_ADMIN_PASSWORD, role=UserRole.ADMIN,
     )
-    db.add(zone)
-    db.commit()
-    db.refresh(zone)
-    return zone
+    print(f"Admin created: {settings.FIRST_ADMIN_EMAIL}")
 
 
 # create households scattered inside a zone
@@ -108,6 +121,7 @@ def seed_reference_data(zones_file: Path = DEFAULT_ZONES_FILE) -> None:
     db = SessionLocal()
     rng = random.Random(42)  # same data every run, so the demo is repeatable
     try:
+        ensure_first_admin(db)
         phone_start = 1
         for feature in load_zone_features(zones_file):
             props = feature["properties"]
