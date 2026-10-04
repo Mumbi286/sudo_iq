@@ -1,4 +1,4 @@
-import { HOUSEHOLD_COLORS, humanize, riskStyle, stateColor } from '../../lib/theme'
+import { HOUSEHOLD_COLORS, WHATSAPP_RING, humanize, riskStyle, stateColor } from '../../lib/theme'
 
 function Swatch({ color, label, round = false }) {
   return (
@@ -28,6 +28,10 @@ export default function MapLegend({ zones, meta }) {
       <ul className="space-y-1">
         <Swatch round color={HOUSEHOLD_COLORS.registered} label="registered" />
         <Swatch round color={HOUSEHOLD_COLORS.vulnerable} label="has vulnerable members" />
+        <li className="flex items-center gap-2">
+          <span className="inline-block h-2.5 w-2.5 rounded-full border-2 bg-transparent" style={{ borderColor: WHATSAPP_RING }} />
+          <span>reached on WhatsApp</span>
+        </li>
       </ul>
       {meta && (
         <>
