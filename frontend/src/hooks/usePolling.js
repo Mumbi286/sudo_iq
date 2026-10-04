@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Keep the previous object for any key whose content did not change,
 // so the map only re-renders the parts that actually changed.
@@ -13,9 +13,10 @@ function shareUnchanged(prev, next, cache) {
   return merged
 }
 
-// Call `fetcher` now and every `intervalMs`; returns the latest data, error and refresh time
+// Call `fetcher` now and every `intervalMs`; `refresh()` fetches immediately (e.g. after issuing an alert)
 export function usePolling(fetcher, intervalMs) {
   const [state, setState] = useState({ data: null, error: null, updatedAt: null })
+  const [nonce, setNonce] = useState(0)
   const cacheRef = useRef({})
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export function usePolling(fetcher, intervalMs) {
       cancelled = true
       clearInterval(id)
     }
-  }, [fetcher, intervalMs])
+  }, [fetcher, intervalMs, nonce])
 
-  return state
+  const refresh = useCallback(() => setNonce((n) => n + 1), [])
+  return { ...state, refresh }
 }

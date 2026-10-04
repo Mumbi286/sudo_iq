@@ -1,7 +1,7 @@
 import { stateColor } from '../../lib/theme'
 
 // Live log of alerts and household replies, newest first.
-// Item shape: { id, time, title, detail, state }; filled by the alerts API from Phase 2.
+// Item shape: { id, time, title, detail, state }, built from /events in lib/feed.js.
 export default function ActivityFeed({ items }) {
   return (
     <section>
@@ -14,7 +14,7 @@ export default function ActivityFeed({ items }) {
           No alerts yet. Issued alerts and household replies will stream here.
         </p>
       ) : (
-        <ol className="space-y-1.5">
+        <ol className="max-h-64 space-y-1.5 overflow-y-auto pr-1">
           {items.map((item) => (
             <li key={item.id} className="flex gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
               <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: stateColor(item.state) }} />

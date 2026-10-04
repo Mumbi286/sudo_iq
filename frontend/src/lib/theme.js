@@ -27,6 +27,9 @@ export const HOUSEHOLD_COLORS = {
   vulnerable: '#f472b6',
 }
 
+// Ring around households reached on WhatsApp (e.g. judges who joined live)
+export const WHATSAPP_RING = '#25d366'
+
 export const riskStyle = (level) => RISK_STYLES[level] ?? { label: `Risk ${level}`, color: FALLBACK_COLOR }
 export const stateColor = (state) => STATE_COLORS[state] ?? FALLBACK_COLOR
 export const humanize = (value) => value.toLowerCase().replace(/_/g, ' ')

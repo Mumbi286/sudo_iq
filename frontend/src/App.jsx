@@ -1,13 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import BasemapSwitcher from './components/map/BasemapSwitcher'
 import MapLegend from './components/map/MapLegend'
 import MapView from './components/map/MapView'
 import GlassPanel from './components/panel/GlassPanel'
+import { useAuth } from './hooks/useAuth'
 import { useDashboardData } from './hooks/useDashboardData'
-import { API_URL } from './lib/api'
+import { API_URL, api } from './lib/api'
+import { DEFAULT_BASEMAP_ID } from './lib/basemaps'
+import { buildFeed } from './lib/feed'
 import { summarize } from './lib/stats'
-
-// Activity items arrive with the alerts API in Phase 2
-const NO_ACTIVITY = []
 
 function FullScreenMessage({ title, children }) {
   return (
@@ -21,10 +22,32 @@ function FullScreenMessage({ title, children }) {
 }
 
 export default function App() {
-  const { data, error, updatedAt } = useDashboardData()
+  const { data, error, updatedAt, refresh } = useDashboardData()
+  const { session, login, logout } = useAuth()
   const [selectedZoneId, setSelectedZoneId] = useState(null)
+  const [basemapId, setBasemapId] = useState(DEFAULT_BASEMAP_ID)
 
   const stats = useMemo(() => (data ? summarize(data.zones, data.households) : null), [data])
+  const activity = useMemo(() => (data ? buildFeed(data.activeAlert, data.events) : []), [data])
+
+  // Issue an alert, then refresh at once so the map turns yellow without waiting for the next poll
+  const issueAlert = useCallback(
+    async (payload) => {
+      const alert = await api.issueAlert(session.token, payload)
+      refresh()
+      return alert
+    },
+    [session, refresh],
+  )
+
+  const addHousehold = useCallback(
+    async (payload) => {
+      const household = await api.addHousehold(session.token, payload)
+      refresh()
+      return household
+    },
+    [session, refresh],
+  )
 
   if (!data) {
     return error ? (
@@ -48,17 +71,25 @@ export default function App() {
         households={data.households}
         selectedZoneId={selectedZoneId}
         onSelectZone={setSelectedZoneId}
+        basemapId={basemapId}
       />
+      <BasemapSwitcher value={basemapId} onChange={setBasemapId} />
       <MapLegend zones={data.zones} meta={data.meta} />
       <GlassPanel
         meta={data.meta}
         zones={data.zones}
         stats={stats}
+        activeAlert={data.activeAlert}
+        activity={activity}
         selectedZoneId={selectedZoneId}
         onSelectZone={setSelectedZoneId}
         updatedAt={updatedAt}
         error={error}
-        activity={NO_ACTIVITY}
+        session={session}
+        onLogin={login}
+        onLogout={logout}
+        onIssue={issueAlert}
+        onAddHousehold={addHousehold}
       />
     </main>
   )
