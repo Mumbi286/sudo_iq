@@ -1,0 +1,28 @@
+# Render blueprint for the Mlinzi API. The database is Neon (PostGIS) and the frontend is on Vercel.
+services:
+  - type: web
+    name: mlinzi-api
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: FIRST_ADMIN_EMAIL
+        sync: false
+      - key: FIRST_ADMIN_PASSWORD
+        sync: false
+      - key: CORS_ALLOW_ORIGINS
+        sync: false
+      - key: SMS_PROVIDER
+        value: simulated
+      - key: AT_USERNAME
+        value: sandbox
+      - key: AT_API_KEY
+        sync: false
+      - key: SIMULATION
+        value: "true"

@@ -1,0 +1,20 @@
+# Local infrastructure: PostGIS on host port 5433.
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: mlinzi-db
+    environment:
+      POSTGRES_DB: mlinzi
+      POSTGRES_PASSWORD: mlinzi
+    ports:
+      - "5433:5432"
+    volumes:
+      - mlinzi-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mlinzi"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  mlinzi-db-data:
